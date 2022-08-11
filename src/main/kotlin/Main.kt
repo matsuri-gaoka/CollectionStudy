@@ -4,12 +4,24 @@ fun main(args: Array<String>) {
     printList(list1.insertRange(list2, 2))
 }
 
-fun <T> insertRange(original: List<T>, insert: List<T>, index: Int): List<T> {
-    if(index < 0 || index > original.size){
-        //throw IllegalArgumentException()
+fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): List<T> {
+    if (index < 0 || index > original.count()) {
+        throw IllegalArgumentException()
     }
-    return original.subList(0, index) +
-            insert + original.subList(index, original.size)
+    val resultList = mutableListOf<T>()
+    for (x in original.withIndex()){
+        if(x.index == index)
+            for(y in insert) {
+                resultList.add(y)
+            }
+        resultList.add(x.value)
+    }
+    if(index == original.count()) {
+        for (y in insert) {
+            resultList.add(y)
+        }
+    }
+    return resultList
 }
 
 @JvmName("insertRangeT")

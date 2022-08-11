@@ -5,7 +5,7 @@ import kotlin.test.assertFails
 internal class MainKtTest {
 
     @Test
-    fun insertRangeException1(){
+    fun insertRangeException1() {
         val originalList = listOf(1, 2, 3, 4, 5)
         val insertList = listOf(99, 98, 97)
         assertFails { insertRange(originalList, insertList, -1) }
@@ -66,7 +66,16 @@ internal class MainKtTest {
     }
 
     @Test
-    fun insertRangeException2(){
+    fun insertRangeWithSet1() {
+        val originalList = listOf(1, 2, 3, 4, 5)
+        val insertSet = setOf(99, 99, 99, 98, 98, 97)
+        val actual = insertRange(originalList, insertSet, 5)
+        val expected = listOf(1, 2, 3, 4, 5, 99, 98, 97)
+        assertContentEquals(actual, expected)
+    }
+
+    @Test
+    fun insertRangeException2() {
         val originalList = listOf(1, 2, 3, 4, 5)
         val insertList = listOf(99, 98, 97)
         assertFails { insertRange(originalList, insertList, 6) }
