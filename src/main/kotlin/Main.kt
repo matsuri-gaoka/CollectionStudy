@@ -9,19 +9,17 @@ fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): Lis
         throw IllegalArgumentException()
     }
     val resultList = mutableListOf<T>()
-    for (x in original.withIndex()){
-        if(x.index == index)
-            for(y in insert) {
-                resultList.add(y)
+    return when (index) {
+        0 -> insert + original
+        original.count() -> original + insert
+        else -> {
+            for ((i, x) in original.withIndex()) {
+                if (i == index) resultList.addAll(insert)
+                resultList.add(x)
             }
-        resultList.add(x.value)
-    }
-    if(index == original.count()) {
-        for (y in insert) {
-            resultList.add(y)
+            resultList
         }
     }
-    return resultList
 }
 
 @JvmName("insertRangeT")
