@@ -4,7 +4,7 @@ fun main(args: Array<String>) {
     printList(list1.insertRange(list2, 2))
 }
 
-fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): List<T> {
+fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): Iterable<T> {
     if (index < 0 || index > original.count()) {
         throw IllegalArgumentException()
     }
@@ -23,11 +23,11 @@ fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): Lis
 }
 
 @JvmName("insertRangeT")
-fun <T> List<T>.insertRange(insert: List<T>, index: Int): List<T> {
+fun <T> List<T>.insertRange(insert: List<T>, index: Int): Iterable<T> {
     return insertRange(this, insert, index)
 }
 
-fun <T> printList(list: List<T>) {
+fun <T> printList(list: Iterable<T>) {
     for (item in list) {
         print("$item ")
     }
