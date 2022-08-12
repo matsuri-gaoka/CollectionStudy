@@ -1,7 +1,9 @@
 fun main(args: Array<String>) {
-    val list1 = listOf(1, 2, 3, 4, 5)
-    val list2 = listOf(99, 98, 97)
-    printList(list1.insertRange(list2, 2))
+    val iterable1 = MyIterable()
+    val iterable2 = MyIterable()
+
+    val iterable3 = insertRange(iterable1, iterable2, 1) //ここで無限ループ
+    println(iterable3.first())
 }
 
 fun <T> insertRange(original: Iterable<T>, insert: Iterable<T>, index: Int): Iterable<T> {
@@ -30,5 +32,23 @@ fun <T> List<T>.insertRange(insert: List<T>, index: Int): Iterable<T> {
 fun <T> printList(list: Iterable<T>) {
     for (item in list) {
         print("$item ")
+    }
+}
+
+class MyIterable : Iterable<Int> {
+    override operator fun iterator(): Iterator<Int> {
+        return MyIterator()
+    }
+}
+
+class MyIterator : Iterator<Int> {
+    var num = 1
+
+    override fun hasNext(): Boolean {
+        return true
+    }
+
+    override fun next(): Int {
+        return num++
     }
 }
